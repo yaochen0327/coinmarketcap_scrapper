@@ -25,10 +25,12 @@ for one_file_name in glob.glob("html_flies/*.html"): #glob will loop through all
 
 	currencies_rows = currencies_table. find_all("tr") #STEP 2: find tr to get to the row
 	for r in currencies_rows: #loop through all the rows
-		currency_price = r.find("td", {"class":"cmc-table__cell cmc-table__cell--sortable cmc-table__cell--right cmc-table__cell--sort-by__price"}).find("a").text  #STEP 3: locate the cell we want by the unique keyword element form "class". i.e., #<td class="cmc-table__cell cmc-table__cell--sortable cmc-table__cell--right cmc-table__cell--sort-by__price"><a href="/currencies/bitcoin/markets/" class="cmc-link">$9,542.93</a></td>
-		currency_name = r.find("td", {"class":"cmc-table__cell cmc-table__cell--sticky cmc-table__cell--sortable cmc-table__cell--left cmc-table__cell--sort-by__name"}).find("a",{"class":"cmc-link"}).text
-		currency_marketcap = r.find("td", {"class":"cmc-table__cell cmc-table__cell--sortable cmc-table__cell--right cmc-table__cell--sort-by__market-cap"}).find("div").text
-		currency_supply = r.find("td", {"class":"cmc-table__cell cmc-table__cell--sortable cmc-table__cell--right cmc-table__cell--sort-by__circulating-supply"}).find("div").text.replace("*","")
+		currency_price = r.find("td", {"class":"cmc-table__cell--sort-by__price"}).find("a").text  #STEP 3: locate the cell we want by the unique keyword element form "class". i.e., #<td class="cmc-table__cell cmc-table__cell--sortable cmc-table__cell--right cmc-table__cell--sort-by__price"><a href="/currencies/bitcoin/markets/" class="cmc-link">$9,542.93</a></td>
+		currency_name = r.find("td", {"class":"cmc-table__cell--sort-by__name"}).find("a",{"class":"cmc-link"}).text
+		currency_marketcap = r.find("td", {"class":"cmc-table__cell--sort-by__market-cap"}).find("div").text
+		currency_supply = r.find("td", {"class":"cmc-table__cell--sort-by__circulating-supply"}).find("div").text.replace("*","")
+		currency_link = r.find("td", {"class":"cmc-table__cell--sort-by__name"}).find("a",{"class":"cmc-link"})["href"]
+
 		# print(currency_name)
 		# print(currency_price)
 		# print(currency_marketcap)
@@ -38,7 +40,8 @@ for one_file_name in glob.glob("html_flies/*.html"): #glob will loop through all
 			'name': currency_name,
 			'price': currency_price,
 			'marketcap': currency_marketcap,
-			'supply': currency_supply
+			'supply': currency_supply,
+			'link': currency_link
 			}, ignore_index=True)
 
 	#currencies_row = currencies_table. find("tr") #STEP 2: find tr to get to the row
@@ -50,6 +53,8 @@ for one_file_name in glob.glob("html_flies/*.html"): #glob will loop through all
 	df.to_csv("parsed_flies/coinmarketcap_dataset.csv") #use panda to transfer it into .csv data
 
 	#add one more column o .csv file to in dicate the date/time of the original file
+
+
 
 
 

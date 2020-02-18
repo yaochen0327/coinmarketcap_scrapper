@@ -21,7 +21,7 @@ import urllib.request
 import time
 import datetime
 import os
-import random
+
 
 if not os.path.exists("html_flies"):
 	os.mkdir("html_flies") #store all the .html file seperately in another folder
@@ -34,20 +34,21 @@ for i in range(1):
 	print(current_time_stamp)
 	f = open("html_flies/coinmarketcap" + current_time_stamp + ".html", "wb")
 	response = urllib.request.urlopen('https://coinmarketcap.com/') #do the resquest
+	#for j in range():#use for loop to read the following pages
+	#	response = urllib.request.urlopen('https://coinmarketcap.com/j') #do the resquest
+
 	print(response)
 	html = response.read()
 #print(html)
 	f.write(html)
 	f.close()
-	time.sleep(300 + random) #sleep for 300 seconds, 5-min interval
+	time.sleep(300) #sleep for 300 seconds, 5-min interval
 	#sleeptime=random.randint(1, 5) ##### try this way!!
 	#time.sleep(sleeptime)
 
 ##scrape it reapeatedly
 
 
-
-###parsing... next time
 
 
 
